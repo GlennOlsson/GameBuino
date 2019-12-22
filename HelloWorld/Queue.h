@@ -10,6 +10,9 @@ class Node {
 	int x;
 	int y;
 	Node(int x, int y): x(x), y(y){}
+	bool operator==(Node& other){
+		return x == other.x && y == other.y;
+	}
 };
 
 class QueueIterator {
@@ -53,6 +56,8 @@ class Queue {
 	Node*& peekBottom();
 
 	QueueIterator& begin();
+
+	bool contains(Node* n);
 
 	~Queue(){
 		while(length > 0){

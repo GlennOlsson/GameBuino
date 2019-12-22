@@ -111,7 +111,7 @@ void moveSnake(){
 
 	snake->move();
 
-	auto currPos = snake->positions->peekBottom();
+	Node* currPos = snake->positions->peekBottom();
 	int currX = (*currPos).x;
 	int currY = (*currPos).y;
 
@@ -120,6 +120,11 @@ void moveSnake(){
 		return;
 	}
 	if(currY < 0 || currY >= LCDHEIGHT){
+		isGameOver = true;
+		return;
+	}
+
+	if(snake->positions->contains(currPos)){
 		isGameOver = true;
 		return;
 	}

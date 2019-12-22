@@ -52,13 +52,15 @@
 // 	q.push(2, 7);
 // 	q.push(2, 8);
 // 	q.push(2, 9);
+// 	q.push(2, 7);
+// 	q.push(2, 5);
 // 	auto& it = q.begin();
 // 	for(int i = 0; i < q.length; i++){
 // 		cout << (*it).x << "," << (*it).y << endl;
 // 		++it;
 // 	}
 
-// 	delete qt;
+// 	cout << (q.contains(q.last, q.last->prev) ? "true" : "false") << endl;
 
 // 	// auto tmp = q.pop();
 // 	// cout << "popped " << tmp->x << ", " << tmp->y << endl;

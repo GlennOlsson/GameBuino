@@ -59,3 +59,14 @@ Node*& Queue::peekBottom(){
 QueueIterator& Queue::begin(){
 	return *new QueueIterator(last);
 }
+
+bool Queue::contains(Node* n){
+	Node* node = last;
+	for(int i = 0; i < length - 1; i++){
+		// cout << "NOde " << node->x << ", " << node->y << endl; 
+		if(*node == *n)
+			return true;
+		node = node->prev;
+	}
+	return false;
+}
