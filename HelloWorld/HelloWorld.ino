@@ -1,8 +1,7 @@
-#include <SPI.h>
 #include <Gamebuino.h>
 #include "Queue.h"
 #include "Snake.h"
-
+#include <SPI.h>
 Gamebuino gb;
 
 int i = 1;
@@ -11,12 +10,15 @@ int loops = 0;
 Snake* snake;
 Food* food;
 
+bool isWaiting;
+bool isGameOver;
+
 //Gets some prints with this version
 
 void drawSnake(){
-	Queue& positions = snake->positions;
-	auto& it = positions.begin();
-	for(int i = 0; i < positions.length; i++){
+	Queue* positions = snake->positions;
+	auto& it = positions->begin();
+	for(int i = 0; i < positions->length; i++){
 		// Serial.print((*it).x);
 		// Serial.print(",");
 		// Serial.print((*it).y);
@@ -37,11 +39,8 @@ void generateFood(){
 	food = new Food(foodX, foodY);
 }
  
-void setup(){
-	gb.begin();
-	gb.pickRandomSeed();
-	gb.titleScreen(F("Snakes")); 
-	Serial.begin(9600);
+void initSnake(){
+	isGameOver = false;
 
 	int randX = random(0, LCDWIDTH);
 	int randY = random(0, LCDHEIGHT);
@@ -50,6 +49,15 @@ void setup(){
 	snake->init();
 
 	generateFood();
+}
+
+void setup(){
+	gb.begin();
+	gb.pickRandomSeed();
+	gb.titleScreen(F("Snakes")); 
+	Serial.begin(9600);
+	isWaiting = false;
+	initSnake();
 }
 
 void input(){
@@ -61,8 +69,8 @@ void input(){
 	}
 	else if (gb.buttons.pressed(BTN_B)){
 	} 
-	
-	auto currPos = snake->positions.peekBottom();
+
+	auto currPos = snake->positions->peekBottom();
 	int currX = (*currPos).x;
 	int currY = (*currPos).y;
 	
@@ -77,23 +85,45 @@ void input(){
 	}
 }
 
-void update(){
-}
+void gameOver(){
+	gb.display.textWrap = true;
+	gb.display.println("Game over");
 
-void draw(){
-	// gb.display.drawRect(i, 50, 2, 2);
+	gb.display.print(snake->length());
+	gb.display.print(" points!");
+
+	gb.display.println("Press C for menu");
+
+	if(gb.buttons.pressed(BTN_C)){
+		delete snake;
+		delete food;
+		gb.titleScreen(F("Snake\nPlay again, press A"));
+		initSnake();
+		// isGameOver = true;
+		// isWaiting = true;
+	}
 }
 
 void moveSnake(){
 	if(loops++ != 1)
 		return;
 	loops = 0;
-	
+
 	snake->move();
 
-	auto currPos = snake->positions.peekBottom();
+	auto currPos = snake->positions->peekBottom();
 	int currX = (*currPos).x;
 	int currY = (*currPos).y;
+
+	if(currX < 0 || currX >= LCDWIDTH){	
+		isGameOver = true;
+		return;
+	}
+	if(currY < 0 || currY >= LCDHEIGHT){
+		isGameOver = true;
+		return;
+	}
+
 	if(currX == food->x && currY == food->y){
 		snake->eat();
 		delete food;
@@ -104,10 +134,15 @@ void moveSnake(){
 
 void loop(){
 	if (gb.update()){
-		input();
-		moveSnake();
+		if(!isGameOver){
+			input();
+			moveSnake();
+			drawFood();
+		} else {
+			gameOver();
+		}
+
 		drawSnake();
-		drawFood();
 		// gb.display.drawRect(30, 30, i, i);
 		// Serial.println("Hey"); 
 	}

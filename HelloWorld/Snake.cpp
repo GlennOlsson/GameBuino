@@ -2,6 +2,9 @@
 #include "Snake.h"
 #include <Gamebuino.h>
 
+
+// int LCDWIDTH = 84;
+// int LCDHEIGHT = 48;
 // #include <iostream>
 // using namespace std;
 
@@ -32,7 +35,7 @@ void Snake::init(){
 		if(yTmp < 0)
 			yTmp = LCDHEIGHT + yTmp;
 
-		positions.push(xTmp % LCDWIDTH, yTmp % LCDHEIGHT);
+		positions->push(xTmp % LCDWIDTH, yTmp % LCDHEIGHT);
 	}
 }
 
@@ -51,19 +54,21 @@ void Snake::move(){
 		newX = x - 1;
 		newY = y;
 	}
-	if(newX < 0)
-		newX = LCDWIDTH + newX;
+	// if(newX < 0)
+	// 	newX = LCDWIDTH + newX;
 		
-	if(newY < 0)
-		newY = LCDHEIGHT + newY;
+	// if(newY < 0)
+	// 	newY = LCDHEIGHT + newY;
 
-	positions.push(newX % LCDWIDTH, newY % LCDHEIGHT);
+	// newX %= LCDWIDTH;
+	// newY %= LCDHEIGHT;
+
+	positions->push(newX, newY);
 	x = newX,
 	y = newY;
 	if(!hasEaten){
-		Node* tmp = positions.pop();
-		if(tmp != nullptr)
-			delete tmp;
+		Node* tmp = positions->pop();
+		delete tmp;
 		
 	} else { //Don't remove last if just eaten
 		hasEaten = false;

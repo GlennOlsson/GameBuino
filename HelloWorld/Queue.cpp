@@ -36,6 +36,11 @@ void Queue::push(int x, int y){
 }
  
 Node* Queue::pop(){
+	if(last == nullptr){
+		// cout << "LEGTH 0" << endl;
+		return nullptr;
+
+	}
 	Node* tmp = last;
 	last = last->prev;
 	length--;

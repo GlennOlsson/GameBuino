@@ -11,7 +11,7 @@ class Snake {
 
 	int x;
 	int y;
-	Queue positions;
+	Queue* positions;
 	int direction; //0 - up, 1 - right, down, left
 	bool hasEaten;
 
@@ -20,17 +20,21 @@ class Snake {
 	// }
 
 	Snake(int startX, int startY, int dir): x(startX), y(startY), hasEaten(false), direction(dir){
-		positions = *new Queue();
+		positions = new Queue();
 	}
 
 	void init();
 
 	int length(){
-		return positions.length;
+		return positions->length;
 	}
 	
 	void move();
 	void setDirection(int dir);
 	void eat();
+
+	~Snake(){
+		delete positions;
+	}
 };
 #endif

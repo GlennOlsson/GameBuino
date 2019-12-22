@@ -1,6 +1,9 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
+// #include <iostream>
+// using namespace std;
+
 class Node {
 	public:
 	Node* prev;
@@ -50,6 +53,14 @@ class Queue {
 	Node*& peekBottom();
 
 	QueueIterator& begin();
+
+	~Queue(){
+		while(length > 0){
+			// std::cout << "popping" << std::endl;
+			delete pop();
+		}
+		// cout << "done popping" << endl;
+	}
 };
 
 #endif

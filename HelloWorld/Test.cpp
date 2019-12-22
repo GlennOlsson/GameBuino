@@ -25,14 +25,14 @@
 
 // void foo(){
 // 	int index = 0;
-// 	Queue& positions = snake->positions;
+// 	Queue* positions = snake->positions;
 // 	cout << "Start prints\n" << endl;
-// 	cout << positions.length << endl;
-// 	cout << (*positions.begin()).x << endl;
+// 	cout << positions->length << endl;
+// 	cout << (*positions->begin()).x << endl;
 // 	cout << "," << endl;
-// 	cout << (*(++positions.begin())).y << endl;
-// 	auto& it = positions.begin();
-// 	for(int i = 0; i < positions.length; i++){
+// 	cout << (*(++positions->begin())).y << endl;
+// 	auto& it = positions->begin();
+// 	for(int i = 0; i < positions->length; i++){
 // 		cout << (*it).x << "," << (*it).y << endl;
 // 		++it;
 // 		// cout << ",");
@@ -45,17 +45,21 @@
 // int main(int argc, char const *argv[])
 // {
 
-// 	// Queue q = *new Queue();
-// 	// q.push(2, 5);
-// 	// q.push(2, 6);
-// 	// q.push(2, 7);
-// 	// q.push(2, 8);
-// 	// q.push(2, 9);
-// 	// auto& it = q.begin();
-// 	// for(int i = 0; i < q.length; i++){
-// 	// 	cout << (*it).x << "," << (*it).y << endl;
-// 	// 	++it;
-// 	// }
+// 	Queue* qt = new Queue();
+// 	Queue q= *qt;
+// 	q.push(2, 5);
+// 	q.push(2, 6);
+// 	q.push(2, 7);
+// 	q.push(2, 8);
+// 	q.push(2, 9);
+// 	auto& it = q.begin();
+// 	for(int i = 0; i < q.length; i++){
+// 		cout << (*it).x << "," << (*it).y << endl;
+// 		++it;
+// 	}
+
+// 	delete qt;
+
 // 	// auto tmp = q.pop();
 // 	// cout << "popped " << tmp->x << ", " << tmp->y << endl;
 // 	// it = q.begin();
@@ -71,13 +75,13 @@
 // 	// 	++it;
 // 	// }
 
-// 	cout << "hello" << endl;
-// 	init();
-// 	foo();
-// 	for(int i = 0; i < 6000000; i++){
-// 		snake->move();
-// 		foo();
-// 	}
+// 	// cout << "hello" << endl;
+// 	// init();
+// 	// foo();
+// 	// for(int i = 0; i < 6000000; i++){
+// 	// 	snake->move();
+// 	// 	foo();
+// 	// }
 
 // 	return 0;
 // }
