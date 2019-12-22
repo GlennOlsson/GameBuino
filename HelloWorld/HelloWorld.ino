@@ -25,7 +25,7 @@ void drawSnake(){
 	}
 	delete &it;
 }
-
+ 
 void setup(){
 	gb.begin();
 	gb.titleScreen(F("Snakes")); 
@@ -70,10 +70,10 @@ void loop(){
 	if (gb.update()){
 
 		drawSnake();
-		if(loops == 10){
+		// if(loops == 10){
 			snake->move();
 			loops = 0;
-		}
+		// }
 		input();
 		gb.display.drawRect(30, 30, i, i);
 		loops++;
