@@ -9,6 +9,7 @@ int i = 1;
 int loops = 0;
 
 Snake* snake;
+Food* food;
 
 //Gets some prints with this version
 
@@ -25,6 +26,16 @@ void drawSnake(){
 	}
 	delete &it;
 }
+
+void drawFood(){
+	gb.display.drawRect(food->x, food->y, 1, 1);
+}
+
+void generateFood(){
+	int foodX = random(0, 84);
+	int foodY = random(0, 48);
+	food = new Food(foodX, foodY);
+}
  
 void setup(){
 	gb.begin();
@@ -37,6 +48,8 @@ void setup(){
 	int dir = random(0, 4);
 	snake = new Snake(randX, randY, dir);
 	snake->init();
+
+	generateFood();
 }
 
 void input(){
@@ -66,17 +79,31 @@ void draw(){
 	// gb.display.drawRect(i, 50, 2, 2);
 }
 
+void moveSnake(){
+	if(loops++ != 3)
+		return;
+	loops = 0;
+	
+	snake->move();
+
+	auto currPos = snake->positions.peek();
+	int currX = (*currPos).x;
+	int currY = (*currPos).y;
+	if(currX == food->x && currY == food->y){
+		snake->eat();
+		delete food;
+		generateFood();
+	}
+
+}
+
 void loop(){
 	if (gb.update()){
-
+		moveSnake();
 		drawSnake();
-		// if(loops == 10){
-			snake->move();
-			loops = 0;
-		// }
+		drawFood();
 		input();
-		gb.display.drawRect(30, 30, i, i);
-		loops++;
+		// gb.display.drawRect(30, 30, i, i);
 		// Serial.println("Hey"); 
 	}
 }

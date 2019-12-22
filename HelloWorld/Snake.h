@@ -1,6 +1,11 @@
 #ifndef SNAKE_H
 #define SNAKE_H
 
+struct Food {
+	int x, y;
+	Food(int x, int y): x(x), y(y){}
+};
+
 class Snake {
 	public:
 
