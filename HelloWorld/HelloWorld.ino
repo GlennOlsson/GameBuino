@@ -48,15 +48,15 @@ void input(){
 	}
 	else if (gb.buttons.pressed(BTN_B)){
 	} 
-	// else if (gb.buttons.pressed(BTN_UP)) {
-	// 	snake->setDirection(0);
-	// } else if (gb.buttons.pressed(BTN_RIGHT)) {
-	// 	snake->setDirection(1);		
-	// } else if (gb.buttons.pressed(BTN_DOWN)) {
-	// 	snake->setDirection(2);		
-	// } else if (gb.buttons.pressed(BTN_LEFT)) {
-	// 	snake->setDirection(3);		
-	// }
+	else if (gb.buttons.pressed(BTN_UP)) {
+		snake->setDirection(0);
+	} else if (gb.buttons.pressed(BTN_RIGHT)) {
+		snake->setDirection(1);		
+	} else if (gb.buttons.pressed(BTN_DOWN)) {
+		snake->setDirection(2);		
+	} else if (gb.buttons.pressed(BTN_LEFT)) {
+		snake->setDirection(3);		
+	}
 }
 
 void update(){
