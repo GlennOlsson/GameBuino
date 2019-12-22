@@ -19,7 +19,7 @@ class QueueIterator {
 	Node& operator*(){
 		return *node;
 	}
-	Node* operator++(){
+	Node*& operator++(){
 		node = node->prev;
 		return node;
 	}
@@ -35,13 +35,19 @@ class Queue {
 	Node* root;
 	Node* last;
 
+	int length;
+
+	Queue(){
+		length = 0;
+	}
+
 	void push(int x, int y);
 
 	Node* pop();
 
-	Node* peek();
+	Node*& peek();
 
-	QueueIterator begin();
+	QueueIterator& begin();
 };
 
-#endif QUEUE_H
+#endif

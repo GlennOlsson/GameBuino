@@ -10,14 +10,23 @@ class Snake {
 	int direction; //0 - up, 1 - right, down, left
 	bool hasEaten;
 
-	Snake(int startX, int startY, int dir): x(startX), y(startY), direction(dir), hasEaten(false){
+	// Snake(int startX, int startY, int dir): x(startX), y(startY), direction(dir), hasEaten(false){
+	// 	positions = *new Queue();
+	// }
+
+	Snake(int startX, int startY, int dir): x(50), y(20), hasEaten(false){
+		direction = 3;
 		positions = *new Queue();
 	}
 
 	void init();
 
-	Node* move();
+	int length(){
+		return positions.length;
+	}
+	
+	void move();
 	void setDirection(int dir);
 	void eat();
 };
-#endif SNAKE_H
+#endif
