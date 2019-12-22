@@ -47,6 +47,8 @@ class Queue {
 
 	Node*& peek();
 
+	Node*& peekBottom();
+
 	QueueIterator& begin();
 };
 
