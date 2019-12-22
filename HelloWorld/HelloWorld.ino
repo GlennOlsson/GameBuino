@@ -28,7 +28,7 @@ void drawSnake(){
 }
 
 void drawFood(){
-	gb.display.drawRect(food->x, food->y, 1, 1);
+	gb.display.drawRect(food->x, food->y, 1, 1); 
 }
 
 void generateFood(){
@@ -61,13 +61,13 @@ void input(){
 	}
 	else if (gb.buttons.pressed(BTN_B)){
 	} 
-	else if (gb.buttons.pressed(BTN_UP)) {
+	else if (gb.buttons.pressed(BTN_UP) && snake->direction % 2 != 0) {
 		snake->setDirection(0);
-	} else if (gb.buttons.pressed(BTN_RIGHT)) {
+	} else if (gb.buttons.pressed(BTN_RIGHT) && snake->direction % 2 != 1) {
 		snake->setDirection(1);		
-	} else if (gb.buttons.pressed(BTN_DOWN)) {
+	} else if (gb.buttons.pressed(BTN_DOWN) && snake->direction % 2 != 0) {
 		snake->setDirection(2);		
-	} else if (gb.buttons.pressed(BTN_LEFT)) {
+	} else if (gb.buttons.pressed(BTN_LEFT) && snake->direction % 2 != 1) {
 		snake->setDirection(3);		
 	}
 }
@@ -80,13 +80,13 @@ void draw(){
 }
 
 void moveSnake(){
-	if(loops++ != 3)
+	if(loops++ != 1)
 		return;
 	loops = 0;
 	
 	snake->move();
 
-	auto currPos = snake->positions.peek();
+	auto currPos = snake->positions.peekBottom();
 	int currX = (*currPos).x;
 	int currY = (*currPos).y;
 	if(currX == food->x && currY == food->y){
@@ -99,10 +99,10 @@ void moveSnake(){
 
 void loop(){
 	if (gb.update()){
+		input();
 		moveSnake();
 		drawSnake();
 		drawFood();
-		input();
 		// gb.display.drawRect(30, 30, i, i);
 		// Serial.println("Hey"); 
 	}

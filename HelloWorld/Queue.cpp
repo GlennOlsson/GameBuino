@@ -47,6 +47,10 @@ Node*& Queue::peek(){
 	return last;
 }
 
+Node*& Queue::peekBottom(){
+	return root;
+}
+
 QueueIterator& Queue::begin(){
 	return *new QueueIterator(last);
 }
