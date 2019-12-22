@@ -19,8 +19,7 @@ class Snake {
 	// 	positions = *new Queue();
 	// }
 
-	Snake(int startX, int startY, int dir): x(50), y(20), hasEaten(false){
-		direction = 3;
+	Snake(int startX, int startY, int dir): x(startX), y(startY), hasEaten(false), direction(dir){
 		positions = *new Queue();
 	}
 

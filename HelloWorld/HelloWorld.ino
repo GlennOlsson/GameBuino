@@ -39,12 +39,12 @@ void generateFood(){
  
 void setup(){
 	gb.begin();
+	gb.pickRandomSeed();
 	gb.titleScreen(F("Snakes")); 
 	Serial.begin(9600);
-	randomSeed(analogRead(0));
 
-	int randX = random(0, 84);
-	int randY = random(0, 48);
+	int randX = random(0, LCDWIDTH);
+	int randY = random(0, LCDHEIGHT);
 	int dir = random(0, 4);
 	snake = new Snake(randX, randY, dir);
 	snake->init();
@@ -61,7 +61,12 @@ void input(){
 	}
 	else if (gb.buttons.pressed(BTN_B)){
 	} 
-	else if (gb.buttons.pressed(BTN_UP) && snake->direction % 2 != 0) {
+	
+	auto currPos = snake->positions.peekBottom();
+	int currX = (*currPos).x;
+	int currY = (*currPos).y;
+	
+	if (gb.buttons.pressed(BTN_UP) && snake->direction % 2 != 0) {
 		snake->setDirection(0);
 	} else if (gb.buttons.pressed(BTN_RIGHT) && snake->direction % 2 != 1) {
 		snake->setDirection(1);		
