@@ -1,5 +1,5 @@
+build
 *.code-workspace
 *.o
-build/**
 .vscode
 .DS_Store
